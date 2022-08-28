@@ -1,0 +1,43 @@
+{{ ansible_managed | comment(decoration='; ') }}
+
+[{{ item.pool_name | mandatory }}]
+
+user = {{ item.pool_user }}
+group = {{ item.pool_group }}
+
+listen = {{ item.pool_listen }}
+;listen.backlog = 511
+
+listen.owner = {{ item.pool_user }}
+listen.group = {{ item.pool_group }}
+;listen.mode = 0660
+listen.allowed_clients = 127.0.0.1
+
+pm = {{ item.pool_pm }}
+pm.max_children = {{ item.pool_pm_max_children }}
+;pm.process_idle_timeout = 10s;
+pm.max_requests = {{ pool_php_fpm_pm_max_requests }}
+
+;pm.status_path = /status
+;ping.path = /ping
+;ping.response = pong
+
+access.log = log/$pool.access.log
+slowlog = log/$pool.log.slow
+request_slowlog_timeout = {{ pool_request_slowlog_timeout }}
+
+{% for key, val in item.php_admin_value.items()  %}
+php_admin_value[{{ key }}] = {{ val }}
+{% endfor %}
+
+{% for key, val in item.php_admin_flag.items() %}
+php_admin_flag[{{ key }}] = {{ val }}
+{% endfor %}
+
+{% for key, val in item.php_value.items() %}
+php_value[{{ key }}] = {{ val }}
+{% endfor %}
+
+{% for key, val in item.php_flag.items() %}
+php_flag[{{ key }}] = {{ val }}
+{% endfor %}
