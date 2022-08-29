@@ -3,8 +3,7 @@ dependencies: []
 
 galaxy_info:
   role_name: php
-  author: geerlingguy
-  fork: "Ivan Pastir"
+  author: "Ivan Pastir"
   description: PHP for Ubuntu.
   company: "IPastir"
   license: "license (BSD, MIT)"
@@ -19,9 +18,4 @@ galaxy_info:
     - development
     - web
     - php
-    - language
     - fpm
-    - drupal
-    - wordpress
-    - joomla
-    - magento
