@@ -1,5 +1,4 @@
 ---
-__php_default_version_debian: "7.4"
 __php_packages:
   - php
   - php-cli
@@ -17,3 +16,6 @@ __php_packages:
   - php-xmlrpc
 
 __php_fpm_daemon: php-fpm
+__php_version: "7.4"
+__php_fpm_pool_conf_dir: "/etc/php/{{ __php_version }}/fpm/pool.d"
+__php_log_dir: "/var/log/php"
