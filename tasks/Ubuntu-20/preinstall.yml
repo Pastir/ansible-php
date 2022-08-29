@@ -1,0 +1,30 @@
+---
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "{{ php_log_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Create file error.log for pool
+  ansible.builtin.file:
+    path: "{{ php_log_dir }}/{{ item.pool_name }}.error.log"
+    state: touch
+    mode: '0600'
+  when: item.php_admin_value.error_log is defined
+  loop: "{{ php_fpm_pools }}"
+
+- name: Create file access.log for pool
+  ansible.builtin.file:
+    path: "{{ php_log_dir }}/{{ item.pool_name }}.access.log"
+    state: touch
+    mode: '0600'
+  when: item.pool_access_log is defined
+  loop: "{{ php_fpm_pools }}"
+
+- name: Create file slow.log for pool
+  ansible.builtin.file:
+    path: "{{ php_log_dir }}/{{ item.pool_name }}.slow.log"
+    state: touch
+    mode: '0600'
+  when: item.pool_slow_log is defined
+  loop: "{{ php_fpm_pools }}"
