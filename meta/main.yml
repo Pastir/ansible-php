@@ -1,13 +1,10 @@
----
-dependencies: []
-
 galaxy_info:
   role_name: php
   author: "Ivan Pastir"
-  description: PHP for Ubuntu.
+  description: PHP install for Ubuntu.
   company: "IPastir"
-  license: "license (BSD, MIT)"
-  min_ansible_version: 2.8
+  license: Apache License, Version 2.0
+  min_ansible_version: "2.9"
   platforms:
     - name: Ubuntu
       versions:
@@ -19,3 +16,5 @@ galaxy_info:
     - web
     - php
     - fpm
+
+dependencies: []

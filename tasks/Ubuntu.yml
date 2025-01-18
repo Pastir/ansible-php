@@ -1,0 +1,36 @@
+- name: Update apt cache.
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 86400
+
+- name: Ensure required packages are installed
+  ansible.builtin.apt:
+    name:
+      - software-properties-common
+      - python3-debian
+    state: present
+
+- name: Add PHP stable repository
+  ansible.builtin.deb822_repository:
+    name: "{{ php_repo_name | default(__php_repo_name) }}"
+    types: deb
+    uris: "{{ php_repo_uris | default(__php_repo_uris) }}"
+    suites: "{{ ansible_distribution_release }}"
+    components: ["main"]
+    signed_by: "{{ php_repo_signed | default(__php_repo_signed) }}"
+    architectures: amd64
+    state: present
+    enabled: true
+
+- name: Install php package
+  ansible.builtin.apt:
+    name: "{{ php_packages | default(__php_packages) }}"
+    state: present
+    update_cache: true
+
+- name: Enable php-fpm daemon
+  ansible.builtin.systemd_service:
+    state: started
+    enabled: true
+    name: "{{ php_fpm_daemon | default(__php_fpm_daemon) }}"
+  when: ( php_fpm_enable | default(__php_fpm_enable))

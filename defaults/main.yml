@@ -1,9 +1,7 @@
----
-php_enablerepo: ""
-php_packages_state: present
-
-# PHP-FPM configuration.
-php_enable_php_fpm: true
-php_fpm_state: started
-php_fpm_handler_state: restarted
-php_fpm_enabled_on_boot: true
+__php_repo_name: "ondrej-php"
+__php_repo_uris: ["https://ppa.launchpadcontent.net/ondrej/php/ubuntu/"]
+__php_packages_state: present
+__php_repo_signed: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x71DAEAAB4AD4CAB6"
+__php_version: "8.1"
+__php_fpm_daemon: "php8.1-fpm"
+__php_fpm_enable: false

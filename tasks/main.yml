@@ -1,41 +1,13 @@
----
 # Variable setup.
+# load all variables
+- name: Load all variable files from defaults
+  ansible.builtin.include_vars:
+    dir: ../defaults
+    extensions:
+      - yml
+
 - name: Include OS-specific variables.
-  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+  ansible.builtin.include_vars: "{{ ansible_distribution }}.yml"
 
-- name: Include distribution and version-specific vars.
-  include_vars: "{{ item }}"
-  with_first_found:
-    - files:
-        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-      skip: true
-
-- name: Set PHP version .
-  set_fact:
-    php_version: "{{ __php_version }}"
-  when: php_version is not defined and ansible_os_family == 'Debian'
-
-- name: Define php_packages.
-  set_fact:
-    php_packages: "{{ __php_packages | list }}"
-  when: php_packages is not defined
-
-- name: Define php_enablerepo.
-  set_fact:
-    php_enablerepo: "{{ __php_enablerepo }}"
-  when: php_enablerepo is not defined
-
-- name: Define php_fpm_pool_conf_dir.
-  set_fact:
-    php_enablerepo: "{{ __php_fpm_pool_conf_dir }}"
-  when: php_fpm_pool_conf_dir is not defined
-
-- name: Define php_log_dir.
-  set_fact:
-    php_log_dir: "{{ __php_log_dir }}"
-  when: php_log_dir is not defined
-
-- include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/install.yml"
-- include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/preinstall.yml"
-- include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/php-fpm-pools.yml"
-
+- name: Include OS-specific task.
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
