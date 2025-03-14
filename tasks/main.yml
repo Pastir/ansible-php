@@ -9,5 +9,11 @@
 - name: Include OS-specific variables.
   ansible.builtin.include_vars: "{{ ansible_distribution }}.yml"
 
+- name: Create a directory logs
+  ansible.builtin.file:
+    path: "{{ php_logs_fpm_dir | default(__php_logs_fpm_dir) }}"
+    state: directory
+    mode: '0755'
+
 - name: Include OS-specific task.
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
