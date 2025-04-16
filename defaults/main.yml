@@ -3,6 +3,6 @@ __php_repo_uris: ["https://ppa.launchpadcontent.net/ondrej/php/ubuntu/"]
 __php_packages_state: present
 __php_repo_signed: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x71DAEAAB4AD4CAB6"
 __php_version: "8.1"
-__php_fpm_daemon: "php8.1-fpm"
+__php_fpm_service: "php8.1-fpm"
 __php_fpm_enable: false
 __php_logs_fpm_dir: "/var/log/php"
